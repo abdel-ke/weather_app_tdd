@@ -8,10 +8,15 @@ environment:
 
 dependencies:
   bloc: ^8.1.4
+  dartz: ^0.10.1
   equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.5
+  get_it: ^7.7.0
+  http: ^1.2.1
+  internet_connection_checker: ^1.0.0+1
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
