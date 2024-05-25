@@ -27,9 +27,7 @@ Future<void> init() async {
   sl.registerLazySingleton(
       () => WeatherLocalDatasourceImpl(sharedPreferences: sl()));
 
-  // repositories
-  sl.registerLazySingleton<WeatherRepository>(() => WeatherRepositoryImpl(
-      remoteDataSource: sl(), networkInfo: sl(), localDataSource: sl()));
+
 
   // bloc
   sl.registerFactory(() => WeatherBloc(weatherUsecase: sl()));
@@ -38,32 +36,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => NetworkInfoImpl(sl()));
 
   // external
+    // repositories
+  sl.registerLazySingleton(() => WeatherRepository);
+  sl.registerLazySingleton(() => WeatherRepositoryImpl(
+      remoteDataSource: sl(), networkInfo: sl(), localDataSource: sl()));
 }
-
-// Future<void> init() async {
-//   // bloc
-//   sl.registerFactory(() => WeatherBloc(weatherUsecase: sl()));
-
-//   // UseCases
-//   sl.registerLazySingleton(() => WeatherUsecase(sl()));
-
-//   // repositories
-//   sl.registerLazySingleton<WeatherRepository>(() => WeatherRepositoryImpl(
-//       remoteDataSource: sl(), networkInfo: sl(), localDataSource: sl()));
-
-//   // datasources
-//   sl.registerLazySingleton(() => http.Client());
-//   sl.registerLazySingleton(() => InternetConnectionChecker());
-
-//   final sharedPreferences = await SharedPreferences.getInstance();
-//   sl.registerLazySingleton(() => sharedPreferences);
-
-//   sl.registerLazySingleton(() => WeatherRemoteDatasourceImpl(client: sl()));
-//   sl.registerLazySingleton(
-//       () => WeatherLocalDatasourceImpl(sharedPreferences: sl()));
-
-// // ! Core
-//   sl.registerLazySingleton(() => NetworkInfoImpl(sl()));
-
-//   // external
-// }

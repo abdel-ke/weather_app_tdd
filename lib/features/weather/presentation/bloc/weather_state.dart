@@ -9,7 +9,7 @@ abstract class WeatherState extends Equatable {
 class WeatherInitial extends WeatherState {}
 
 class LoadedWeather extends WeatherState {
-  final City city;
+  final List<City> city;
 
   const LoadedWeather({
     required this.city

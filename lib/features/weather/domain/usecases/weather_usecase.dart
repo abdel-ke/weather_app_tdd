@@ -8,7 +8,7 @@ class WeatherUsecase {
 
   WeatherUsecase(this._repository);
 
-  Future<Either<Failure, City>> call(String cityName) {
+  Future<Either<Failure, List<City>>> call(String cityName) {
     return _repository.getCity(cityName);
   }
 }

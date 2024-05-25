@@ -20,7 +20,7 @@ class WeatherRepositoryImpl extends WeatherRepository {
   });
 
   @override
-  Future<Either<Failure, City>> getCity(String cityName) async {
+  Future<Either<Failure, List<City>>> getCity(String cityName) async {
     if (await networkInfo.isConnected) {
       try {
         final city = await remoteDataSource.getCity(cityName);
@@ -31,7 +31,7 @@ class WeatherRepositoryImpl extends WeatherRepository {
       }
     } else {
       try {
-        final CityModel cachedCity = await localDataSource.getCachedCity();
+        final List<CityModel> cachedCity = await localDataSource.getCachedCity();
         return Right(cachedCity);
       } on EmptyCacheException {
         return Left(EmptyCacheFailure());
