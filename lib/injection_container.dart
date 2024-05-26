@@ -13,31 +13,32 @@ import 'package:http/http.dart' as http;
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  // UseCases
+  //! features - posts
+  // Bloc
+  sl.registerFactory(() => WeatherBloc(weatherUsecase: sl()));
+
+  // Usecases
   sl.registerLazySingleton(() => WeatherUsecase(sl()));
 
-  // datasources
-  sl.registerLazySingleton(() => http.Client());
-  sl.registerLazySingleton(() => InternetConnectionChecker());
+  // Repositories
+  sl.registerLazySingleton<WeatherRepository>(() => WeatherRepositoryImpl(
+      localDataSource: sl(), remoteDataSource: sl(), networkInfo: sl()));
+
+  // Datasources
+  sl.registerLazySingleton(
+      () => WeatherLocalDatasourceImpl(sharedPreferences: sl()));
+  sl.registerLazySingleton(
+      () => WeatherRemoteDatasourceImpl(client: sl()));
+
+  //! Core
+  // Netwprl info
+  sl.registerLazySingleton(() => NetworkInfoImpl(sl()));
+
+  //! External
 
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);
-
-  sl.registerLazySingleton(() => WeatherRemoteDatasourceImpl(client: sl()));
-  sl.registerLazySingleton(
-      () => WeatherLocalDatasourceImpl(sharedPreferences: sl()));
-
-
-
-  // bloc
-  sl.registerFactory(() => WeatherBloc(weatherUsecase: sl()));
-
-  // ! Core
-  sl.registerLazySingleton(() => NetworkInfoImpl(sl()));
-
-  // external
-    // repositories
-  sl.registerLazySingleton(() => WeatherRepository);
-  sl.registerLazySingleton(() => WeatherRepositoryImpl(
-      remoteDataSource: sl(), networkInfo: sl(), localDataSource: sl()));
+  sl.registerLazySingleton(() => http.Client());
+  sl.registerLazySingleton(() => InternetConnectionChecker());
 }
+ 

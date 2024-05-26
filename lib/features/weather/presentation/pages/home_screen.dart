@@ -9,17 +9,57 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // i want when i switch to the loaded weather page, i can back to the search city page
+    return Container(
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/background/galaxy.jpg"),
+              fit: BoxFit.cover)),
+      child: Scaffold(
+        appBar: _apBar(),
+        body: _buildBody(),
+      ),
+    );
+  }
 
-    return BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
-      debugPrint('state: $state');
-      if (state is WeatherInitial) {
-        return const SearchCityPage();
-      } else if (state is LoadedWeather) {
-        return LoadedCitiesPage(contexto: context, city: state.city);
-      } else {
-        return const Center(child: Text('Error'));
-      }
-    });
+  AppBar _apBar() {
+    return AppBar(
+      title: TextField(
+        textInputAction: TextInputAction.done,
+        onTap: () {},
+        decoration: const InputDecoration(
+            prefixIcon: Icon(Icons.search, color: Colors.white),
+            hintText: 'Search...',
+            border: InputBorder.none,
+            hintStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            )),
+      ),
+    );
+  }
+
+  Widget _buildBody() {
+    return Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
+        debugPrint('BlocBuilder call');
+        if (state is WeatherInitialState) {
+          debugPrint('LoadInitialWeather call');
+          return const SearchCityPage();
+        } else if (state is LoadedWeatherState) {
+          debugPrint('LoadedWeather call');
+          return LoadedCitiesPage(city: state.city);
+        } else if (state is ErrorWeatherState) {
+          debugPrint('ErrorWeatherState call');
+          return Center(
+            child: Text(state.message),
+          );
+        } else {
+          debugPrint('Autre call');
+          return const Center(child: Text('Error'));
+        }
+      }),
+    );
   }
 }

@@ -12,7 +12,7 @@ abstract class WeatherLocalDatasource {
 
 const CACHED_CITY = "CACHED_CITY";
 
-class WeatherLocalDatasourceImpl extends WeatherLocalDatasource {
+class WeatherLocalDatasourceImpl implements WeatherLocalDatasource {
   final SharedPreferences sharedPreferences;
 
   WeatherLocalDatasourceImpl({required this.sharedPreferences});

@@ -8,7 +8,7 @@ import 'package:weather_app_tdd/features/weather/data/models/city_model.dart';
 import 'package:weather_app_tdd/features/weather/domain/entities/weather.dart';
 import 'package:weather_app_tdd/features/weather/domain/repositories/weather_repository.dart';
 
-class WeatherRepositoryImpl extends WeatherRepository {
+class WeatherRepositoryImpl implements WeatherRepository {
   final WeatherRemoteDatasourceImpl remoteDataSource;
   final WeatherLocalDatasourceImpl localDataSource;
   final NetworkInfoImpl networkInfo;

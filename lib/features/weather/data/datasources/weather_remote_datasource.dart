@@ -9,7 +9,7 @@ abstract class WeatherRemoteDatasource {
   Future<List<CityModel>> getCity(String cityName);
 }
 
-class WeatherRemoteDatasourceImpl extends WeatherRemoteDatasource {
+class WeatherRemoteDatasourceImpl implements WeatherRemoteDatasource {
   final http.Client client;
 
   WeatherRemoteDatasourceImpl({required this.client});
@@ -19,14 +19,22 @@ class WeatherRemoteDatasourceImpl extends WeatherRemoteDatasource {
     final String url =
         'https://geocoding-api.open-meteo.com/v1/search?name=$cityName&count=5&language=en&format=json';
     final response = await client.get(Uri.parse(url));
+    debugPrint('response: ${response.statusCode}');
     if (response.statusCode == 200) {
-      debugPrint('response.body: ${response.body[0]}');
       final Map<String, dynamic> decodeJson = json.decode(response.body);
-      final List<CityModel> cityModels = decodeJson['results']
-          .map<CityModel>((jsonCityModel) => CityModel.fromJson(jsonCityModel))
-          .toList();
-      debugPrint('cityModels: $cityModels');
-      return cityModels;
+      debugPrint('response: ${decodeJson['results']}');
+      if (decodeJson['results'] == null) {
+        debugPrint('EmptyData');
+        throw ServerFailure();
+      }
+      else {
+        debugPrint('CityModel');
+        final List<CityModel> cityList = [];
+        for (var item in decodeJson['results']) {
+          cityList.add(CityModel.fromJson(item));
+        }
+        return cityList;
+      }
     }
     throw ServerFailure();
   }

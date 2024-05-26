@@ -12,6 +12,16 @@ class ServerFailure extends Failure {
   List<Object?> get props => [];
 }
 
+class EmptyData extends Failure {
+  @override
+  List<Object?> get props => [];
+}
+
+class ErrorFetchData extends Failure {
+  @override
+  List<Object?> get props => [];
+}
+
 class EmptyCacheFailure extends Failure {
   @override
   List<Object?> get props => [];

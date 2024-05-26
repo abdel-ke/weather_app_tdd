@@ -10,11 +10,12 @@ class CityModel extends City {
 
   factory CityModel.fromJson(Map<String, dynamic> json) {
     return CityModel(
-        name: json['name'],
-        admin1: json['admin1'],
-        country: json['country'],
-        latitude: json['latitude'],
-        longitude: json['longitude']);
+      name: json['name'] ?? '',
+      admin1: json['admin1'] ?? '',
+      country: json['country'] ?? '',
+      latitude: json['latitude'] ?? '',
+      longitude: json['longitude'] ?? '',
+    );
   }
 
   Map<String, dynamic> toJson() {

@@ -7,10 +7,10 @@ abstract class WeatherEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetCity extends WeatherEvent {
+class GetCityEvent extends WeatherEvent {
   final String city;
 
-  const GetCity({
+  const GetCityEvent({
     required this.city
   });
 
@@ -18,13 +18,15 @@ class GetCity extends WeatherEvent {
   List<Object> get props => [city];
 }
 
-class ErrorGetCity extends WeatherEvent {
+class ErrorGetCityEvent extends WeatherEvent {
   final String errorMessage;
 
-  const ErrorGetCity({
+  const ErrorGetCityEvent({
     required this.errorMessage
   });
 
   @override
   List<Object> get props => [errorMessage];
 }
+
+class LoadInitialWeatherEvent extends WeatherEvent {}
