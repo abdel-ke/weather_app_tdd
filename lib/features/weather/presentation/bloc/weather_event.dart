@@ -30,3 +30,5 @@ class ErrorGetCityEvent extends WeatherEvent {
 }
 
 class LoadInitialWeatherEvent extends WeatherEvent {}
+
+class LoadingWeatherEvent extends WeatherEvent {}

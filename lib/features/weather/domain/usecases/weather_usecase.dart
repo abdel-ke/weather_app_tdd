@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:weather_app_tdd/core/errors/failures.dart';
 import 'package:weather_app_tdd/features/weather/domain/entities/weather.dart';
 import 'package:weather_app_tdd/features/weather/domain/repositories/weather_repository.dart';
@@ -9,6 +10,9 @@ class WeatherUsecase {
   WeatherUsecase(this._repository);
 
   Future<Either<Failure, List<City>>> call(String cityName) {
-    return _repository.getCity(cityName);
+    debugPrint('WeatherUsecase call');
+    final result = _repository.getCity(cityName);
+    debugPrint('result: $result');
+    return result;
   }
 }

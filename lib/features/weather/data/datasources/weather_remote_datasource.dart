@@ -26,8 +26,7 @@ class WeatherRemoteDatasourceImpl implements WeatherRemoteDatasource {
       if (decodeJson['results'] == null) {
         debugPrint('EmptyData');
         throw ServerFailure();
-      }
-      else {
+      } else {
         debugPrint('CityModel');
         final List<CityModel> cityList = [];
         for (var item in decodeJson['results']) {

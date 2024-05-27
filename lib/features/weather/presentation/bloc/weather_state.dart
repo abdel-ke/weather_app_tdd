@@ -28,3 +28,5 @@ class ErrorWeatherState extends WeatherState {
   @override
   List<Object> get props => [message];
 }
+
+class LoadingWeatherState extends WeatherState {}

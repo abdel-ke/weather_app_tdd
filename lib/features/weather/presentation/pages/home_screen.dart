@@ -15,6 +15,7 @@ class HomeScreen extends StatelessWidget {
               image: AssetImage("assets/background/galaxy.jpg"),
               fit: BoxFit.cover)),
       child: Scaffold(
+        backgroundColor: Colors.transparent,
         appBar: _apBar(),
         body: _buildBody(),
       ),
@@ -23,6 +24,7 @@ class HomeScreen extends StatelessWidget {
 
   AppBar _apBar() {
     return AppBar(
+      backgroundColor: Colors.transparent,
       title: TextField(
         textInputAction: TextInputAction.done,
         onTap: () {},
@@ -36,6 +38,25 @@ class HomeScreen extends StatelessWidget {
               fontWeight: FontWeight.bold,
             )),
       ),
+      actions: [
+        const VerticalDivider(
+          color: Colors.grey,
+          thickness: 0.8,
+          endIndent: 10,
+          indent: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 5),
+          child: IconButton(
+              onPressed: () async {
+                // await getLocation(context);
+              },
+              icon: const Icon(
+                Icons.location_on_outlined,
+                color: Colors.white,
+              )),
+        ),
+      ],
     );
   }
 
@@ -53,11 +74,20 @@ class HomeScreen extends StatelessWidget {
         } else if (state is ErrorWeatherState) {
           debugPrint('ErrorWeatherState call');
           return Center(
-            child: Text(state.message),
+            child: Text(
+              state.message,
+              style: const TextStyle(fontSize: 25, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
           );
         } else {
           debugPrint('Autre call');
-          return const Center(child: Text('Error'));
+          return const Center(
+            child: Text(
+              'Error',
+              style: TextStyle(color: Colors.white),
+            ),
+          );
         }
       }),
     );
